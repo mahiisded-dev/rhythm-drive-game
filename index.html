@@ -305,73 +305,712 @@
         min-height: 2.8rem;
       }
     }
+
+    /* Arcade dashboard redesign */
+    :root {
+      --ink: #f7f8ff;
+      --muted: #a8aec7;
+      --panel: rgba(18, 23, 43, 0.92);
+      --panel-2: rgba(24, 30, 54, 0.92);
+      --line: rgba(255, 255, 255, 0.09);
+      --cyan: #55e7f2;
+      --yellow: #ffd76a;
+      --violet: #9b7cff;
+      --pink: #ff668d;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(70, 104, 255, 0.20), transparent 27rem),
+        radial-gradient(circle at 82% 78%, rgba(173, 76, 255, 0.12), transparent 30rem),
+        linear-gradient(145deg, #090d20 0%, #11162b 58%, #090c19 100%);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+
+    main,
+    main.app-shell {
+      width: min(1120px, 100%);
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(10, 14, 29, 0.82);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(18px);
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid rgba(85, 231, 242, 0.32);
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(85,231,242,.20), rgba(155,124,255,.12));
+      color: var(--cyan);
+      box-shadow: inset 0 0 18px rgba(85,231,242,.08);
+    }
+
+    .brand-mark svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 17px;
+      letter-spacing: 0.16em;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .live-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #68dfa0;
+      box-shadow: 0 0 10px #68dfa0;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, .75fr);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .game-panel,
+    .music-panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .game-panel {
+      padding: 14px;
+    }
+
+    .game-toolbar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stat {
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .stat-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      color: var(--ink);
+      font-size: 20px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hud {
+      display: none;
+    }
+
+    .board {
+      width: 100%;
+      height: 440px;
+      min-height: 440px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(155,124,255,.05), transparent 55%),
+        linear-gradient(90deg, transparent 33.2%, rgba(255,255,255,.055) 33.3%, transparent 33.5%, transparent 66.5%, rgba(255,255,255,.055) 66.6%, transparent 66.8%),
+        #0d1224;
+      box-shadow: inset 0 0 50px rgba(0,0,0,.28);
+    }
+
+    .lane {
+      border-right: 1px solid rgba(255,255,255,.055);
+    }
+
+    .lane.selected {
+      background: linear-gradient(180deg, rgba(85,231,242,.07), rgba(85,231,242,.025));
+      box-shadow: inset 0 0 28px rgba(85,231,242,.08);
+    }
+
+    .lane-label {
+      bottom: 10px;
+      color: rgba(255,255,255,.38);
+      font-size: 10px;
+      letter-spacing: .12em;
+    }
+
+    .hit-line {
+      top: 78%;
+      border-top: 2px solid var(--cyan);
+      box-shadow: 0 -6px 24px rgba(85,231,242,.22), 0 6px 18px rgba(85,231,242,.12);
+    }
+
+    .hit-line::after {
+      content: "HIT";
+      position: absolute;
+      right: 10px;
+      top: -20px;
+      color: var(--cyan);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .15em;
+    }
+
+    .tile {
+      left: 18%;
+      width: 64%;
+      height: 42px;
+      border: 1px solid rgba(255,244,168,.9);
+      border-radius: 9px;
+      background: linear-gradient(135deg, #ffe27a 0%, #ffad67 100%);
+      box-shadow: 0 8px 22px rgba(255,183,99,.28), inset 0 1px rgba(255,255,255,.65);
+    }
+
+    .game-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 12px;
+    }
+
+    .controls {
+      margin: 0;
+    }
+
+    #message {
+      min-height: 0;
+      max-width: 330px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    button {
+      min-height: 42px;
+      border-radius: 10px;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    #start-button {
+      background: var(--cyan);
+      box-shadow: 0 8px 22px rgba(85,231,242,.16);
+    }
+
+    .stop-button {
+      background: rgba(255,102,141,.16);
+      color: #ff9ab2;
+      border: 1px solid rgba(255,102,141,.20);
+    }
+
+    .music-panel {
+      display: flex;
+      flex-direction: column;
+      max-height: 550px;
+      overflow: auto;
+      background: var(--panel-2);
+    }
+
+    .panel-section {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    #spotify-player {
+      align-items: stretch;
+      width: 100%;
+      min-height: 120px;
+      margin: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(155,124,255,.10), transparent 60%),
+        rgba(8,12,26,.72);
+    }
+
+    #spotify-player-status {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    #spotify-play-button {
+      width: 100%;
+      margin-top: 4px;
+      background: #68dfa0;
+      color: #0b1b15;
+    }
+
+    #spotify-play-button:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+      transform: none;
+    }
+
+    .spotify-link {
+      display: block;
+      margin-top: 10px;
+      color: var(--cyan);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .spotify-link:hover {
+      text-decoration: underline;
+    }
+
+    .spotify-note {
+      max-width: none;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .settings {
+      justify-content: space-between;
+      margin: 0;
+    }
+
+    .settings label,
+    .spotify-tools label {
+      color: var(--ink);
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .settings input {
+      width: 76px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0d1224;
+      color: var(--cyan);
+      text-align: center;
+    }
+
+    .spotify-tools {
+      display: grid;
+      width: 100%;
+      margin: 0;
+      gap: 12px;
+      padding: 16px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .spotify-tools input {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0d1224;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .spotify-tools button {
+      min-height: 38px;
+      background: rgba(155,124,255,.16);
+      color: #c5b9ff;
+      border: 1px solid rgba(155,124,255,.22);
+      font-size: 12px;
+    }
+
+    .spotify-tools p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    #spotify-auth-form {
+      display: grid;
+      gap: 8px;
+    }
+
+    #spotify-auth-form label:not(:first-child) {
+      margin-top: 4px;
+    }
+
+    #spotify-auth-form p {
+      margin: 2px 0;
+    }
+
+    #spotify-client-id,
+    #spotify-redirect-uri,
+    #track-link,
+    #spotify-search {
+      height: 38px;
+    }
+
+    .search-row,
+    .load-row {
+      gap: 6px;
+    }
+
+    /* Final interface polish */
+    .topbar {
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .game-toolbar {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .stat {
+      min-height: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat:last-child {
+      border-color: rgba(255, 102, 141, 0.24);
+      background: rgba(255, 102, 141, 0.055);
+    }
+
+    .stat:last-child strong {
+      color: #ff9ab2;
+    }
+
+    .lane-label {
+      min-width: 7rem;
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      background: rgba(8, 12, 26, 0.78);
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 9px;
+    }
+
+    .lane.selected .lane-label {
+      border-color: rgba(85, 231, 242, 0.28);
+      color: var(--cyan);
+    }
+
+    .tile {
+      border-radius: 8px;
+    }
+
+    .game-controls {
+      min-height: 54px;
+      border-top: 1px solid var(--line);
+    }
+
+    .controls button {
+      min-width: 112px;
+    }
+
+    #message {
+      max-width: 360px;
+      line-height: 1.45;
+    }
+
+    .music-panel {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(155, 124, 255, 0.35) transparent;
+    }
+
+    .panel-section {
+      background: rgba(255, 255, 255, 0.012);
+    }
+
+    .spotify-link {
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        display: block;
+        padding: 10px;
+      }
+
+      main.app-shell {
+        min-height: calc(100vh - 20px);
+      }
+
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .music-panel {
+        max-height: none;
+      }
+
+      .board {
+        height: 420px;
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 0;
+      }
+
+      main.app-shell {
+        border-width: 0;
+        border-radius: 0;
+      }
+
+      .topbar {
+        min-height: 68px;
+        padding: 12px;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+      }
+
+      .live-status {
+        padding: 8px;
+        font-size: 0;
+      }
+
+      .dashboard {
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .game-panel {
+        padding: 8px;
+      }
+
+      .stat {
+        min-height: 58px;
+        padding: 8px 6px;
+      }
+
+      .stat strong {
+        font-size: 17px;
+      }
+
+      .board {
+        height: min(48vh, 390px);
+        min-height: 330px;
+      }
+
+      .game-toolbar {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .stat-label {
+        font-size: 8px;
+      }
+
+      .lane-label {
+        min-width: 0;
+        width: calc(100% - 8px);
+        overflow: hidden;
+        font-size: 8px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .game-controls {
+        align-items: flex-end;
+        gap: 8px;
+      }
+
+      #message {
+        max-width: 150px;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .controls button {
+        width: 112px;
+        white-space: nowrap;
+      }
+
+      .search-row,
+      .load-row {
+        flex-direction: row;
+      }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Rhythm Drive</h1>
-    <p class="instructions">Catch each tile on the glowing line.<br>
-      Keyboard: A/D and Enter. Touch screen: tap the tile.</p>
-
-    <div id="spotify-player" aria-label="Spotify full-track player">
-      <p id="spotify-player-status" aria-live="polite">Connect Spotify to enable full-track playback.</p>
-      <button id="spotify-play-button" type="button" disabled>Play selected song</button>
-    </div>
-    <a class="spotify-link" href="https://open.spotify.com/track/6pWgRkpqVfxnj3WuIcJ7WP" target="_blank" rel="noopener noreferrer">
-      Open selected song in Spotify
-    </a>
-    <p class="spotify-note">Full-track playback requires Spotify Premium and this page to be served from HTTPS or localhost; a downloaded file opened directly can't sign in. Spotify estimates BPM but doesn't provide exact beat-by-beat timing.</p>
-
-    <section class="spotify-tools" aria-label="Find and load a Spotify song">
-      <form action="https://open.spotify.com/search" method="get" target="_blank" rel="noopener">
-        <label for="spotify-search">Search Spotify</label>
-        <div class="search-row">
-          <input id="spotify-search" name="q" type="search" placeholder="Song or artist" required>
-          <button type="submit">Search</button>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 12h3l2-5 4 10 3-7 2 2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-      </form>
-      <p>Choose a song in Spotify, use Share to copy its link, then paste it here.</p>
-      <form id="track-load-form">
-        <label for="track-link">Spotify song link</label>
-        <div class="load-row">
-          <input id="track-link" type="text" placeholder="Paste a Spotify track link" required>
-          <button type="submit">Load song</button>
+        <div>
+          <h1>RHYTHM DRIVE</h1>
+          <p>Beat runner // A / D / Enter</p>
         </div>
-      </form>
-      <form id="spotify-auth-form">
-        <label for="spotify-client-id">Spotify app Client ID</label>
-        <input id="spotify-client-id" type="text" autocomplete="off" placeholder="Paste your app's Client ID" required>
-        <label for="spotify-redirect-uri">Redirect URL for your app settings</label>
-        <input id="spotify-redirect-uri" type="url" readonly>
-        <p>Serve this page over HTTPS or localhost and add this exact URL to your Spotify app's Redirect URIs. Never enter a Client Secret here.</p>
-        <button type="submit">Connect Spotify for full playback + BPM</button>
-        <p id="spotify-auth-status" aria-live="polite">Connect your Spotify app to enable full playback and detect each loaded song's tempo.</p>
-      </form>
-    </section>
+      </div>
+      <div class="live-status">SYSTEM READY</div>
+    </header>
 
-    <div class="settings">
-      <label for="bpm">Beat tempo (BPM)</label>
-      <input id="bpm" type="number" min="30" max="300" step="0.1" value="85">
-    </div>
+    <div class="dashboard">
+      <section class="game-panel" aria-label="Rhythm game">
+        <div class="game-toolbar">
+          <div class="stat"><span class="stat-label">Score</span><strong id="score">0</strong></div>
+          <div class="stat"><span class="stat-label">Best</span><strong id="best-score">0</strong></div>
+          <div class="stat"><span class="stat-label">Combo</span><strong id="combo">0</strong></div>
+          <div class="stat"><span class="stat-label">Lives</span><strong id="lives">3 / 3</strong></div>
+        </div>
 
-    <div class="hud">
-      <span>Score: <span id="score">0</span></span>
-      <span>Best: <span id="best-score">0</span></span>
-      <span>Combo: <span id="combo">0</span></span>
-    </div>
+        <div id="board" class="board" aria-label="Three-lane rhythm game">
+          <div class="lane" data-lane="0"><span class="lane-label">LEFT Â· A</span></div>
+          <div class="lane selected" data-lane="1"><span class="lane-label">CENTER Â· ENTER</span></div>
+          <div class="lane" data-lane="2"><span class="lane-label">RIGHT Â· D</span></div>
+          <div class="hit-line"></div>
+        </div>
 
-    <div id="board" class="board" aria-label="Three-lane rhythm game">
-      <div class="lane" data-lane="0"><span class="lane-label">A</span></div>
-      <div class="lane selected" data-lane="1"><span class="lane-label">CENTER</span></div>
-      <div class="lane" data-lane="2"><span class="lane-label">D</span></div>
-      <div class="hit-line"></div>
-    </div>
+        <div class="game-controls">
+          <div class="controls">
+            <button id="start-button" type="button">Start game</button>
+            <button id="stop-button" class="stop-button" type="button">Stop</button>
+          </div>
+          <p id="message" aria-live="polite">Connect Spotify, then play the selected song.</p>
+        </div>
+      </section>
 
-    <div class="controls">
-      <button id="start-button" type="button">Start game</button>
-      <button id="stop-button" class="stop-button" type="button">Stop</button>
+      <aside class="music-panel" aria-label="Music and game settings">
+        <section class="panel-section">
+          <div class="section-heading"><span>Now playing</span><span>SPOTIFY</span></div>
+          <div id="spotify-player" aria-label="Spotify full-track player">
+            <p id="spotify-player-status" aria-live="polite">Connect Spotify to enable full-track playback.</p>
+            <button id="spotify-play-button" type="button" disabled>Play selected song</button>
+          </div>
+          <a class="spotify-link" href="https://open.spotify.com/track/6pWgRkpqVfxnj3WuIcJ7WP" target="_blank" rel="noopener noreferrer">
+            Open selected song in Spotify
+          </a>
+          <p class="spotify-note">Premium and HTTPS or localhost are required for full playback.</p>
+        </section>
+
+        <section class="panel-section">
+          <div class="settings">
+            <label for="bpm">Beat tempo (BPM)</label>
+            <input id="bpm" type="number" min="30" max="300" step="0.1" value="85">
+          </div>
+        </section>
+
+        <section class="spotify-tools" aria-label="Find and load a Spotify song">
+          <div class="section-heading"><span>Track setup</span></div>
+          <form action="https://open.spotify.com/search" method="get" target="_blank" rel="noopener">
+            <label for="spotify-search">Search Spotify</label>
+            <div class="search-row">
+              <input id="spotify-search" name="q" type="search" placeholder="Song or artist" required>
+              <button type="submit">Search</button>
+            </div>
+          </form>
+          <p>Choose a song in Spotify, copy its link, then paste it below.</p>
+          <form id="track-load-form">
+            <label for="track-link">Spotify song link</label>
+            <div class="load-row">
+              <input id="track-link" type="text" placeholder="Paste a Spotify track link" required>
+              <button type="submit">Load</button>
+            </div>
+          </form>
+          <form id="spotify-auth-form">
+            <label for="spotify-client-id">Spotify app Client ID</label>
+            <input id="spotify-client-id" type="text" autocomplete="off" placeholder="Paste your app's Client ID" required>
+            <label for="spotify-redirect-uri">Redirect URL</label>
+            <input id="spotify-redirect-uri" type="url" readonly>
+            <p>Add this exact URL to your Spotify app. Never enter a Client Secret here.</p>
+            <button type="submit">Connect Spotify</button>
+            <p id="spotify-auth-status" aria-live="polite">Connect to enable playback and tempo detection.</p>
+          </form>
+        </section>
+      </aside>
     </div>
-    <p id="message" aria-live="polite">Connect Spotify, then play the selected song.</p>
   </main>
 
   <script>
@@ -387,6 +1026,7 @@
     const scoreDisplay = document.querySelector("#score");
     const bestScoreDisplay = document.querySelector("#best-score");
     const comboDisplay = document.querySelector("#combo");
+    const livesDisplay = document.querySelector("#lives");
     const message = document.querySelector("#message");
     const startButton = document.querySelector("#start-button");
     const stopButton = document.querySelector("#stop-button");
@@ -421,6 +1061,8 @@
     let tiles = [];
     let score = 0;
     let combo = 0;
+    const maximumLives = 3;
+    let lives = maximumLives;
     let bestScore = Number(localStorage.getItem("rhythm-drive-best")) || 0;
     let running = false;
     let nextBeatTimeMs = 0;
@@ -675,9 +1317,11 @@
       tiles = [];
       score = 0;
       combo = 0;
+      lives = maximumLives;
       previousTileLane = -1;
       scoreDisplay.textContent = "0";
       comboDisplay.textContent = "0";
+      livesDisplay.textContent = `${lives} / ${maximumLives}`;
       selectLane(1);
 
       const beatMs = 60000 / Number(bpmInput.value);
@@ -697,9 +1341,52 @@
       });
       tiles = [];
       combo = 0;
+      lives = maximumLives;
       comboDisplay.textContent = "0";
+      livesDisplay.textContent = `${lives} / ${maximumLives}`;
       startButton.textContent = "Start game";
     }
+
+    function loseLife(reason) {
+      if (!running) {
+        return;
+      }
+
+      lives = Math.max(0, lives - 1);
+      livesDisplay.textContent = `${lives} / ${maximumLives}`;
+      combo = 0;
+      comboDisplay.textContent = "0";
+
+      if (lives === 0) {
+        clearGame();
+        if (spotifyPlayer && spotifyIsPlaying) {
+          spotifyIsPlaying = false;
+          updateSpotifyPlayButton();
+          spotifyPlayer.pause().catch(function () {});
+        }
+        showMessage(`Game over! ${reason} Final score: ${score}.`);
+        startButton.textContent = "Restart game";
+        return;
+      }
+
+      showMessage(`${reason} ${lives} ${lives === 1 ? "life" : "lives"} left.`);
+    }
+
+    bpmInput.addEventListener("input", function () {
+      if (!running) {
+        return;
+      }
+
+      const bpm = Number(bpmInput.value);
+      if (!Number.isFinite(bpm) || bpm < 30 || bpm > 300) {
+        return;
+      }
+
+      const beatMs = 60000 / bpm;
+      const positionMs = currentSongPosition();
+      nextBeatTimeMs = Math.ceil((positionMs + dropTimeMs) / beatMs) * beatMs;
+      showMessage(`Beat tempo updated live to ${bpm.toFixed(1)} BPM.`);
+    });
 
     function stopGame() {
       clearGame();
@@ -753,7 +1440,7 @@
         return;
       }
 
-      spotifyAuthStatus.textContent = "Looking up this song's BPM…";
+      spotifyAuthStatus.textContent = "Looking up this song's BPMâ€¦";
       const trackId = uri.split(":").pop();
       try {
         const response = await fetch(
@@ -850,7 +1537,7 @@
       saveSpotifyToken(data);
       spotifyClientIdInput.value = transaction.clientId;
       localStorage.setItem("rhythm-drive-client-id", transaction.clientId);
-      spotifyAuthStatus.textContent = "Connected. Setting up full-track playback…";
+      spotifyAuthStatus.textContent = "Connected. Setting up full-track playbackâ€¦";
       initializeSpotifyPlayer();
       loadTempoForTrack(trackUri);
       return true;
@@ -929,8 +1616,7 @@
 
         if (positionMs > tile.targetTimeMs + hitWindowMs) {
           removeTile(tile);
-          combo = 0;
-          comboDisplay.textContent = "0";
+          loseLife("Missed beat!");
         }
       });
 
@@ -956,9 +1642,7 @@
           });
 
       if (availableTiles.length === 0) {
-        combo = 0;
-        comboDisplay.textContent = "0";
-        showMessage("Miss! Try the next tile as it reaches the glowing line.");
+        loseLife("Miss!");
         return;
       }
 
@@ -1075,7 +1759,7 @@
           throw new Error(`Spotify couldn't start playback (${response.status}).`);
         }
 
-        spotifyPlayerStatus.textContent = "Starting the full song…";
+        spotifyPlayerStatus.textContent = "Starting the full songâ€¦";
       } catch (error) {
         spotifyPlayerStatus.textContent = error.message || "Spotify playback failed.";
       }
@@ -1133,7 +1817,7 @@
           playbackUpdatedAt = performance.now();
           spotifyPlayerStatus.textContent = spotifyReady
             ? "Ready. Play the selected full song here."
-            : "Connecting to Spotify…";
+            : "Connecting to Spotifyâ€¦";
         } else {
           const currentTrack = state.track_window && state.track_window.current_track;
           spotifyTrackMatches = Boolean(currentTrack && currentTrack.uri === trackUri);
